@@ -1,3 +1,5 @@
+#webカメラ制御&撮影&保存
+
 import numpy as np
 import cv2 as cv 
 
@@ -7,14 +9,14 @@ size=(640,480)#録画する動画のフレームサイズを(webカメラと同�
 fps = 20#1秒間に20枚のフレーム数
 fourcc = cv.VideoWriter_fourcc(* 'XVID')
 
-out = cv.VideoWriter('output.avi',fourcc,fps,size)
+out = cv.VideoWriter('./movie/sample.avi',fourcc,fps,size)
 
 
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-while True:
+while True:#while Ture = While(cap.isOpened())
     ret,frame = cap.read()#Capture frame-by-frame
 
     #if frame is read correctly ret is True
