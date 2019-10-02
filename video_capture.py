@@ -2,8 +2,12 @@ import numpy as np
 import cv2 as cv 
 
 cap = cv.VideoCapture(0)
+
+size=(640,480)#録画する動画のフレームサイズを(webカメラと同じにする)
+fps = 20#1秒間に20枚のフレーム数
 fourcc = cv.VideoWriter_fourcc(* 'XVID')
-out = cv.VideoWriter('output.avi',fourcc,20.0,(640,480))
+
+out = cv.VideoWriter('output.avi',fourcc,fps,size)
 
 
 if not cap.isOpened():
@@ -11,20 +15,18 @@ if not cap.isOpened():
     exit()
 
 while True:
-    #Capture frame-by-frame
-    ret,frame = cap.read()
+    ret,frame = cap.read()#Capture frame-by-frame
 
     #if frame is read correctly ret is True
     if not ret:
         print("Cant't recive frame(stream end?).Exiting...")
         break
 
+    cv.imshow('frame',frame)#画面表示
 
-    image = cv.cvtColor(frame,cv.COLOR_BGR2RGBA)
+    out.write(frame)#書き込み
 
-    #Display the resulting frame
-    cv.imshow('frame',image)
-    if cv.waitKey(1) == ord('q'):
+    if cv.waitKey(1) == ord('q'):#キー入力待機
         break
 
 #When everything done, release the capture
