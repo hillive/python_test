@@ -2,7 +2,8 @@
 import numpy as np
 import cv2 as cv
 
-img = cv.imread("lena.jpg")
+img = cv.imread("lena.png
+")
 
 height,width,ch = img.shape
 #画素数 = 幅*高さ 

@@ -1,16 +1,40 @@
 import numpy as np
-import cv2 
+import cv2 as cv
+#import matplotlib.pyplot as plt#matplolibライブラリーをインポート(matplotlibを使う宣言)
+#from matplotlib.patches import polygon
 
-img = cv2.imread('./test.jpg')
-imgray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-ret,thresh = cv2.threshold(imgray,127,255,0)
-contours,hierachy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+#ファイル読み込み
+src = cv.imread('./img2/bottole.jpg')
 
-new = cv2.drawContours(imgray,contours,-1,(0,255,0),3)
+#グレースケール化
+img_gray = cv.cvtColor(src,cv.COLOR_BGR2GRAY)
+cv.imwrite('debug1.png',img_gray)
 
-cv2.imwrite('output.jpg',new)
+#2値化
+ret,dst = cv.threshold(img_gray,127,255,0)
+cv.imwrite('debug2.png',dst)
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+#白黒反転
+dst = cv.bitwise_not(dst)
+cv.imwrite('debug3.png',dst)
 
-##輪郭を描画した画像の保存ができない？？？
+#再度フィルタリング
+#ret,dst = cv.threshold(dst,127,255,0)
+#cv.imwrite('debug4.png',dst)
+
+#輪郭抽出
+contours,hierachy = cv.findContours(dst,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+
+#輪郭描画
+dst = cv.drawContours(src,contours,-1,(0,255,0),2)
+cv.imwrite('debug5.png',dst)
+
+
+
+#外接短径を取得
+#x,y,w,h = cv.boundingRect(contour)
+
+
+
+#save
+cv.imwrite('output3.jpg',dst)
