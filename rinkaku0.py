@@ -23,7 +23,7 @@ cv.imwrite('debug3.png',dst)
 #cv.imwrite('debug4.png',dst)
 
 #輪郭抽出
-contours,hierachy = cv.findContours(dst,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+contours,hierachy = cv.findContours(dst,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
 
 #輪郭描画
 dst = cv.drawContours(src,contours,-1,(0,255,0),2)
