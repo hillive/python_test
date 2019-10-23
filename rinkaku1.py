@@ -1,4 +1,4 @@
-#色中抽出
+#色中画像
 import numpy as np
 import cv2 as cv
 
